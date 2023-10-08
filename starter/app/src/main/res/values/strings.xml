@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Political Preparedness</string>
-
-    <!-- TODO: Add necessary string values -->
+    <string name="app_name">THE CINEMA</string>
+    <string name="search">Search</string>
+    <string name="home">Home</string>
+    <string name="hot">Hot</string>
+    <string name="genres">Genres</string>
+    <string name="favorite">Favorite</string>
+    <string name="popular">popular</string>
+    <string name="top_rate">Top Rate</string>
+    <string name="up_coming">Up Coming</string>
+    <string name="choose_a_genres">Choose a genres</string>
+    <string name="personal_info">Personal Info</string>
+    <string name="birthday">Birthday</string>
+    <string name="place_of_birth">Place of Birth</string>
+    <string name="gender">Gender</string>
+    <string name="known_for">Known For</string>
+    <string name="biography">Biography</string>
+    <string name="no_video">No Video</string>
+    <string name="results">Results</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 
 </resources>

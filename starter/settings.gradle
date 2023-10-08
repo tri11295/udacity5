@@ -28,5 +28,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name='PoliticalPreparedness'
+rootProject.name='Moviedb'
 include ':app'

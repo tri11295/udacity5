@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.android.politicalpreparedness'
+    namespace 'com.example.android.moviedb'
     compileSdk 33
 
     defaultConfig {
-        applicationId 'com.example.android.politicalpreparedness'
+        applicationId 'com.example.android.moviedb'
         minSdkVersion 26
         targetSdkVersion 33
         versionCode 1
@@ -61,6 +61,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
     implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$version_retrofit_coroutines_adapter"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
 
     // Moshi
     implementation "com.squareup.moshi:moshi:$version_moshi"
@@ -68,11 +69,12 @@ dependencies {
     implementation "com.squareup.moshi:moshi-adapters:$version_moshi"
 
     // Glide
-    // TODO: Add Glide Implementation
+    implementation "com.github.bumptech.glide:glide:4.15.1"
 
     // Room
     implementation "androidx.room:room-runtime:$version_room"
     kapt "androidx.room:room-compiler:$version_room"
+    implementation "androidx.room:room-ktx:$version_room"
 
     // Location
     implementation "com.google.android.gms:play-services-location:$version_play_services_location"
