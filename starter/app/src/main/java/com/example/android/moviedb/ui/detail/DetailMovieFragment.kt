@@ -17,7 +17,6 @@ import com.example.android.moviedb.R
 import com.example.android.moviedb.databinding.FragmentDetailMovieBinding
 import com.example.android.moviedb.ultis.Constant.URI_YOUTUBE_APP
 import com.example.android.moviedb.ultis.Constant.URI_YOUTUBE_WEBSITE
-import com.google.android.material.appbar.AppBarLayout
 
 class DetailMovieFragment : Fragment() {
 
@@ -28,6 +27,15 @@ class DetailMovieFragment : Fragment() {
     private val recommendationAdapter by lazy {
         RecommendationAdapter {
 
+        }
+    }
+    private val movieAdapter by lazy {
+        ActorMovieAdapter {
+            findNavController().navigate(
+                DetailMovieFragmentDirections.actionDetailMovieFragmentToActorFragment2(
+                    it
+                )
+            )
         }
     }
 
@@ -50,6 +58,7 @@ class DetailMovieFragment : Fragment() {
         initView()
         initEvent()
         handleEvent()
+
     }
 
     private fun initData() {
@@ -90,6 +99,10 @@ class DetailMovieFragment : Fragment() {
                     detailMovieViewModel.saveMovie()
                     imageFavorite.setImageResource(R.drawable.ic_heart_red)
                 }
+            }
+            detailMovieViewModel.actors.observe(viewLifecycleOwner) {
+                binding.recyclerViewActor.adapter = movieAdapter
+                movieAdapter.setData(it.take(10).toMutableList())
             }
         }
     }

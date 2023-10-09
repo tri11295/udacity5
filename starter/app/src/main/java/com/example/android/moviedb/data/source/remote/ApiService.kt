@@ -1,5 +1,7 @@
 package com.example.android.moviedb.data.source.remote
 
+import com.example.android.moviedb.data.model.ActorDetail
+import com.example.android.moviedb.data.model.ActorResponse
 import com.example.android.moviedb.data.model.DetailMovie
 import com.example.android.moviedb.data.model.MovieResponse
 import com.example.android.moviedb.data.model.VideoResponse
@@ -32,4 +34,14 @@ interface ApiService {
     suspend fun getTrailer(
         @Path("id") id : Int,
     ): Response<VideoResponse>
+
+    @GET("movie/{id}/credits?")
+    suspend fun getActor(
+        @Path("id") id: Int
+    ): Response<ActorResponse>
+
+    @GET("person/{idActor}")
+    suspend fun getActorDetail(
+        @Path("idActor") idActor: Int
+    ): Response<ActorDetail>
 }

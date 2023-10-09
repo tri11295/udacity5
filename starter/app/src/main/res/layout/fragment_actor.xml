@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="actorViewModel"
+            type="com.example.android.moviedb.ui.actor.ActorDetailViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blue_dark">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="450dp">
+
+            <androidx.constraintlayout.motion.widget.MotionLayout
+                android:id="@+id/motionLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="80dp"
+                app:layoutDescription="@xml/fragment_actor_scene"
+                app:layout_scrollFlags="scroll|enterAlways|snap|exitUntilCollapsed">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageBack"
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="@dimen/dp_50"
+                    android:padding="@dimen/dp_10"
+                    android:src="@drawable/ic_back"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textNameActor"
+                    android:layout_width="0dp"
+                    android:layout_height="?actionBarSize"
+                    android:layout_marginEnd="@dimen/dp_50"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@{actorViewModel.detailActor.name}"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_20"
+                    android:visibility="@{actorViewModel.isHideNameActor() ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageBack"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewImageActor"
+                    android:layout_width="250dp"
+                    android:layout_height="380dp"
+                    android:layout_margin="@dimen/dp_10"
+                    app:cardCornerRadius="@dimen/dp_10"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textNameActor">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imagePosterActor"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        bind:onLoadImage="@{actorViewModel.detailActor.imageUrl}" />
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.motion.widget.MotionLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="20dp"
+                android:paddingTop="@dimen/dp_30">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textPersonalInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:text="@string/personal_info"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_20"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_goneMarginTop="@dimen/dp_30" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewBirthdayTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@drawable/custom_hot_screen_button"
+                    android:paddingHorizontal="@dimen/dp_8"
+                    android:text="@string/birthday"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textPersonalInfo" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/texViewBirthday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:text="@{actorViewModel.detailActor.birthday}"
+                    android:textColor="@color/white"
+                    android:visibility="@{actorViewModel.isHideBirthday() ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewBirthdayTitle" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewAddressTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:background="@drawable/custom_hot_screen_button"
+                    android:paddingHorizontal="@dimen/dp_8"
+                    android:text="@string/place_of_birth"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/texViewBirthday" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/texViewAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:text="@{actorViewModel.detailActor.address}"
+                    android:textColor="@color/white"
+                    android:visibility="@{actorViewModel.isHideAddress() ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewAddressTitle" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewGenderTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:background="@drawable/custom_hot_screen_button"
+                    android:paddingHorizontal="@dimen/dp_8"
+                    android:text="@string/gender"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/texViewAddress" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/texViewGender"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:text="@{actorViewModel.detailActor.gender == 1 ? @string/female : @string/male}"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewGenderTitle" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewBiographyTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:background="@drawable/custom_hot_screen_button"
+                    android:paddingHorizontal="@dimen/dp_8"
+                    android:text="@string/biography"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/texViewGender" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/texViewBiography"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:text="@{actorViewModel.detailActor.biography}"
+                    android:textColor="@color/white"
+                    android:visibility="@{actorViewModel.isHideBiography() ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewBiographyTitle" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:background="@color/blue_dark"-->
+    <!--        tools:context=".screen.actordetail.ActorDetailFragment">-->
+
+    <!--        <androidx.core.widget.NestedScrollView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent">-->
+
+    <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="match_parent">-->
+
+    <!--                <androidx.appcompat.widget.AppCompatImageView-->
+    <!--                    android:id="@+id/imageBack"-->
+    <!--                    android:layout_width="@dimen/dp_50"-->
+    <!--                    android:layout_height="@dimen/dp_50"-->
+    <!--                    android:padding="@dimen/dp_10"-->
+    <!--                    android:src="@drawable/ic_back"-->
+    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+    <!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--                <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                    android:id="@+id/textNameActor"-->
+    <!--                    android:layout_width="0dp"-->
+    <!--                    android:layout_height="?actionBarSize"-->
+    <!--                    android:layout_marginEnd="@dimen/dp_50"-->
+    <!--                    android:gravity="center"-->
+    <!--                    android:maxLines="1"-->
+    <!--                    android:text="@{actorViewModel.detailActor.name}"-->
+    <!--                    android:textColor="@color/white"-->
+    <!--                    android:textSize="@dimen/sp_20"-->
+    <!--                    android:visibility="@{actorViewModel.isHideNameActor() ? View.GONE : View.VISIBLE}"-->
+    <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+    <!--                    app:layout_constraintStart_toEndOf="@+id/imageBack"-->
+    <!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+
+    <!--                <androidx.cardview.widget.CardView-->
+    <!--                    android:id="@+id/cardViewImageActor"-->
+    <!--                    android:layout_width="0dp"-->
+    <!--                    android:layout_height="0dp"-->
+    <!--                    android:layout_margin="@dimen/dp_10"-->
+    <!--                    app:cardCornerRadius="@dimen/dp_10"-->
+    <!--                    app:layout_constraintDimensionRatio="783:1174"-->
+    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+    <!--                    app:layout_constraintTop_toBottomOf="@+id/textNameActor"-->
+    <!--                    app:layout_constraintWidth_percent="0.4">-->
+
+    <!--                    <androidx.appcompat.widget.AppCompatImageView-->
+    <!--                        android:id="@+id/imagePosterActor"-->
+    <!--                        android:layout_width="match_parent"-->
+    <!--                        android:layout_height="match_parent"-->
+    <!--                        android:scaleType="centerCrop"-->
+    <!--                        bind:onLoadImage="@{actorViewModel.detailActor.imageUrl}" />-->
+    <!--                </androidx.cardview.widget.CardView>-->
+
+
+    <!--                <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                    android:id="@+id/textPersonalInfo"-->
+    <!--                    android:layout_width="0dp"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_marginStart="@dimen/dp_10"-->
+    <!--                    android:layout_marginTop="@dimen/dp_5"-->
+    <!--                    android:text="@string/personal_info"-->
+    <!--                    android:textColor="@color/white"-->
+    <!--                    android:textSize="@dimen/sp_20"-->
+    <!--                    android:textStyle="bold"-->
+    <!--                    app:layout_constraintEnd_toEndOf="@+id/cardViewImageActor"-->
+    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+    <!--                    app:layout_constraintTop_toBottomOf="@+id/cardViewImageActor" />-->
+
+    <!--                <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                    android:id="@+id/textViewBirthdayTitle"-->
+    <!--                    android:layout_width="0dp"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_marginStart="@dimen/dp_10"-->
+    <!--                    android:layout_marginTop="@dimen/dp_10"-->
+    <!--                    android:background="@drawable/custom_hot_screen_button"-->
+    <!--                    android:paddingHorizontal="@dimen/dp_8"-->
+    <!--                    android:text="@string/birthday"-->
+    <!--                    android:textStyle="bold"-->
+    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+    <!--                    app:layout_constraintTop_toBottomOf="@+id/textPersonalInfo" />-->
+
+    <!--                <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                    android:id="@+id/texViewBirthday"-->
+    <!--                    android:layout_width="0dp"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_marginStart="@dimen/dp_10"-->
+    <!--                    android:text="@{actorViewModel.detailActor.birthday}"-->
+    <!--                    android:textColor="@color/white"-->
+    <!--                    android:visibility="@{actorViewModel.isHideBirthday() ? View.GONE : View.VISIBLE}"-->
+    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+    <!--                    app:layout_constraintTop_toBottomOf="@+id/textViewBirthdayTitle" />-->
+
+    <!--                <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                    android:id="@+id/textViewAddressTitle"-->
+    <!--                    android:layout_width="0dp"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_marginStart="@dimen/dp_10"-->
+    <!--                    android:layout_marginTop="@dimen/dp_8"-->
+    <!--                    android:background="@drawable/custom_hot_screen_button"-->
+    <!--                    android:paddingHorizontal="@dimen/dp_8"-->
+    <!--                    android:text="@string/place_of_birth"-->
+    <!--                    android:textStyle="bold"-->
+    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+    <!--                    app:layout_constraintTop_toBottomOf="@+id/texViewBirthday" />-->
+
+    <!--                <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                    android:id="@+id/texViewAddress"-->
+    <!--                    android:layout_width="0dp"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_marginStart="@dimen/dp_10"-->
+    <!--                    android:text="@{actorViewModel.detailActor.address}"-->
+    <!--                    android:textColor="@color/white"-->
+    <!--                    android:visibility="@{actorViewModel.isHideAddress() ? View.GONE : View.VISIBLE}"-->
+    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+    <!--                    app:layout_constraintTop_toBottomOf="@+id/textViewAddressTitle" />-->
+
+    <!--                <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                    android:id="@+id/textViewGenderTitle"-->
+    <!--                    android:layout_width="0dp"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_marginStart="@dimen/dp_10"-->
+    <!--                    android:layout_marginTop="@dimen/dp_8"-->
+    <!--                    android:background="@drawable/custom_hot_screen_button"-->
+    <!--                    android:paddingHorizontal="@dimen/dp_8"-->
+    <!--                    android:text="@string/gender"-->
+    <!--                    android:textStyle="bold"-->
+    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+    <!--                    app:layout_constraintTop_toBottomOf="@id/texViewAddress" />-->
+
+    <!--                <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                    android:id="@+id/texViewGender"-->
+    <!--                    android:layout_width="0dp"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_marginStart="@dimen/dp_10"-->
+    <!--                    android:text="@{actorViewModel.detailActor.gender == 1 ? @string/female : @string/male}"-->
+    <!--                    android:textColor="@color/white"-->
+    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+    <!--                    app:layout_constraintTop_toBottomOf="@+id/textViewGenderTitle" />-->
+
+    <!--                <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                    android:id="@+id/textViewBiographyTitle"-->
+    <!--                    android:layout_width="0dp"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_marginStart="@dimen/dp_10"-->
+    <!--                    android:layout_marginTop="@dimen/dp_8"-->
+    <!--                    android:layout_marginBottom="@dimen/dp_20"-->
+    <!--                    android:background="@drawable/custom_hot_screen_button"-->
+    <!--                    android:paddingHorizontal="@dimen/dp_8"-->
+    <!--                    android:text="@string/biography"-->
+    <!--                    android:textStyle="bold"-->
+    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+    <!--                    app:layout_constraintTop_toBottomOf="@+id/texViewGender" />-->
+
+    <!--                <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                    android:id="@+id/texViewBiography"-->
+    <!--                    android:layout_width="0dp"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_marginStart="@dimen/dp_10"-->
+    <!--                    android:text="@{actorViewModel.detailActor.biography}"-->
+    <!--                    android:textColor="@color/white"-->
+    <!--                    android:visibility="@{actorViewModel.isHideBiography() ? View.GONE : View.VISIBLE}"-->
+    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+    <!--                    app:layout_constraintTop_toBottomOf="@+id/textViewBiographyTitle" />-->
+
+    <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+    <!--        </androidx.core.widget.NestedScrollView>-->
+    <!--    </LinearLayout>-->
+</layout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
@@ -13,7 +14,7 @@
             type="com.example.android.moviedb.ui.favorite.FavoriteViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -28,4 +29,76 @@
             bind:layout_editor_absoluteX="10dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    <androidx.coordinatorlayout.widget.CoordinatorLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent">-->
+
+    <!--        <com.google.android.material.appbar.AppBarLayout-->
+    <!--            android:id="@+id/appbarLayout"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="200dp">-->
+
+    <!--            <androidx.constraintlayout.motion.widget.MotionLayout-->
+    <!--                android:id="@+id/motionLayout"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="match_parent"-->
+    <!--                android:minHeight="80dp"-->
+    <!--                app:layoutDescription="@xml/fragment_favorite_scene"-->
+    <!--                app:layout_scrollFlags="scroll|enterAlways|snap|exitUntilCollapsed"-->
+    <!--                app:motionDebug="SHOW_ALL">-->
+
+    <!--                <androidx.appcompat.widget.AppCompatImageView-->
+    <!--                    android:id="@+id/book"-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="match_parent"-->
+    <!--                    android:scaleType="centerCrop"-->
+    <!--                    android:src="@drawable/bg_logo" />-->
+
+    <!--                <androidx.appcompat.widget.AppCompatImageView-->
+    <!--                    android:id="@+id/view"-->
+    <!--                    android:layout_width="50dp"-->
+    <!--                    android:layout_height="50dp"-->
+    <!--                    android:layout_marginBottom="10dp"-->
+    <!--                    android:src="@drawable/view"-->
+    <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--                    app:layout_constraintStart_toStartOf="parent" />-->
+
+    <!--                <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                    android:id="@+id/tvReadAll"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:text="Read All"-->
+    <!--                    android:textSize="18sp"-->
+    <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--                    app:layout_constraintEnd_toEndOf="parent" />-->
+
+    <!--            </androidx.constraintlayout.motion.widget.MotionLayout>-->
+    <!--        </com.google.android.material.appbar.AppBarLayout>-->
+
+    <!--        <androidx.core.widget.NestedScrollView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+    <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:paddingBottom="20dp">-->
+
+    <!--                <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                    android:id="@+id/tvText"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_marginStart="30dp"-->
+    <!--                    android:layout_marginTop="30dp"-->
+    <!--                    android:text="File Name : Important: If you're submitting via a public Github repository, please make sure any external API key that you utilize, has been removed from your code. It's highly unsafe (and often breaks the Terms of Service) to include API keys in public repos, so you need to remove yours. You can add a note in a README file where a reviewer should go to insert their API key. Reviewers have been trained to expect this situation.Important: If you're submitting via a public Github repository, please make sure any external API key that you utilize, has been removed from your code. It's highly unsafe (and often breaks the Terms of Service) to include API keys in public repos, so you need to remove yours. You can add a note in a README file where a reviewer should go to insert their API key. Reviewers have been trained Important: If you're submitting via a public Github repository, please make sure any external API key that you utilize, has been removed from your code. It's highly unsafe (and often breaks the Terms of Service) to include API keys in public repos, so you need to remove yours. You can add a note in a README file where a reviewer should go to insert their API key. Reviewers have been trained Important: If you're submitting via a public Github repository, please make sure any external API key that you utilize, has been removed from your code. It's highly unsafe (and often breaks the Terms of Service) to include API keys in public repos, so you need to remove yours. You can add a note in a README file where a reviewer should go to insert their API key. Reviewers have been trained to expect this situation.to expect this situation.to expect this situation."-->
+    <!--                    android:textSize="20sp"-->
+    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+    <!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+    <!--        </androidx.core.widget.NestedScrollView>-->
+
+    <!--    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
 </layout>

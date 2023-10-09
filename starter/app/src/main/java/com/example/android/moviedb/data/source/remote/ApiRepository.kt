@@ -1,5 +1,7 @@
 package com.example.android.moviedb.data.source.remote
 
+import com.example.android.moviedb.data.model.ActorDetail
+import com.example.android.moviedb.data.model.ActorResponse
 import com.example.android.moviedb.data.model.DetailMovie
 import com.example.android.moviedb.data.model.MovieResponse
 import com.example.android.moviedb.data.model.VideoResponse
@@ -26,6 +28,18 @@ object ApiRepository : ApiService {
 
     override suspend fun getTrailer(id: Int): Response<VideoResponse> {
         return apiService.getTrailer(id)
+    }
+
+    override suspend fun getActor(
+        id: Int
+    ): Response<ActorResponse> {
+        return apiService.getActor(id)
+    }
+
+    override suspend fun getActorDetail(
+        idActor: Int
+    ): Response<ActorDetail> {
+        return apiService.getActorDetail(idActor)
     }
 
 }

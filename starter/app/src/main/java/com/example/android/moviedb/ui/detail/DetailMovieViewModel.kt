@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.android.moviedb.data.model.Actor
 import com.example.android.moviedb.data.model.DetailMovie
 import com.example.android.moviedb.data.model.MovieFavorite
 import com.example.android.moviedb.data.model.MovieResult
@@ -20,6 +21,10 @@ class DetailMovieViewModel : ViewModel() {
 
     private lateinit var movieDao: MovieDao
     private val movieRepository = ApiRepository
+
+    private val _actors = MutableLiveData<MutableList<Actor>>()
+    val actors: LiveData<MutableList<Actor>>
+        get() = _actors
 
     private val _genres = MutableLiveData("")
     val genres: LiveData<String>
@@ -62,6 +67,9 @@ class DetailMovieViewModel : ViewModel() {
             viewModelScope.launch {
                 try {
                     launch {
+                        movieRepository.getActor(idMovie).body()?.also {
+                            _actors.plusAssign(it.cast)
+                        }
                         movieRepository.getDetailMovie(idMovie).body()?.also {
                             _detailMovie.value = it
                             _genres.value = it.genres.joinToString(", ") { genre ->
