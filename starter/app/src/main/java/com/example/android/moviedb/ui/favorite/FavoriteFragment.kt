@@ -47,4 +47,10 @@ class FavoriteFragment : Fragment() {
             hotMovieAdapter.setData(it.toMutableList())
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.viewModel = null
+        binding.adapter = null
+    }
 }

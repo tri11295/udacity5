@@ -23,8 +23,8 @@ class HotMovieViewModel : ViewModel(), LoadMoreRecyclerViewListener {
 
     private var currentPage = Constant.DEFAULT_PAGE
 
-    private val _typeHotMovie = MutableLiveData(HotMovieType.POPULAR)
-    private val typeHotMovie: MutableLiveData<HotMovieType>
+    private val _typeHotMovie = MutableLiveData(HotMovieType.POPULAR.path)
+    val typeHotMovie: MutableLiveData<String>
         get() = _typeHotMovie
 
     private val _isLoad = MutableLiveData<Boolean>()
@@ -34,6 +34,10 @@ class HotMovieViewModel : ViewModel(), LoadMoreRecyclerViewListener {
     private val _movies = MutableLiveData<MutableList<MovieResult?>>()
     val movieResult: MutableLiveData<MutableList<MovieResult?>>
         get() = _movies
+
+    init {
+        fetchDataHotMovie(Constant.DEFAULT_PAGE, typeHotMovie.value.orEmpty())
+    }
 
     override fun onLoadData() {
         _isLoad.value = true
@@ -50,11 +54,11 @@ class HotMovieViewModel : ViewModel(), LoadMoreRecyclerViewListener {
 
     fun fetchDataHotMovie(
         numberPage: Int = Constant.DEFAULT_PAGE,
-        typeHotMovie: HotMovieType
+        typeHotMovie: String
     ) {
         viewModelScope.launch {
             try {
-                movieRepository.getHotMovie(typeHotMovie.path, numberPage).apply {
+                movieRepository.getHotMovie(typeHotMovie, numberPage).apply {
                     body()?.let {
                         _movies.plusAssign(it.results)
                     }
@@ -70,7 +74,7 @@ class HotMovieViewModel : ViewModel(), LoadMoreRecyclerViewListener {
     }
 
     fun addHotMovieChange(typeHotMovie: HotMovieType) {
-        _typeHotMovie.postValue(typeHotMovie)
+        _typeHotMovie.postValue(typeHotMovie.path)
         currentPage = Constant.DEFAULT_PAGE
         _movies.value?.clear()
     }

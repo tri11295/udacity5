@@ -21,9 +21,6 @@ import com.example.android.moviedb.ultis.HotMovieType
 class HotFragment : Fragment() {
 
     private val hotMovieViewModel: HotMovieViewModel by viewModels()
-
-    private var initData = false
-
     private val hotMovieAdapter by lazy {
         HotMovieAdapter {
             findNavController().navigate(
@@ -34,6 +31,13 @@ class HotFragment : Fragment() {
         }
     }
     private lateinit var binding: FragmentHotBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (savedInstanceState != null) {
+            hotMovieViewModel.typeHotMovie.postValue(savedInstanceState.getString(KEY_TYPE))
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,14 +61,27 @@ class HotFragment : Fragment() {
         initData()
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (initData) return
-        hotMovieViewModel.fetchDataHotMovie(Constant.DEFAULT_PAGE, HotMovieType.POPULAR)
-        initData = true
-    }
-
     private fun initView() {
+        when (hotMovieViewModel.typeHotMovie.value) {
+            HotMovieType.POPULAR.path -> {
+                changeDataMovie(HotMovieType.POPULAR)
+                setButtonClick(binding.btnPopular)
+                setButtonNotClick(binding.btnTopRate)
+                setButtonNotClick(binding.btnUpComing)
+            }
+            HotMovieType.TOP_RATED.path -> {
+                changeDataMovie(HotMovieType.TOP_RATED)
+                setButtonClick(binding.btnTopRate)
+                setButtonNotClick(binding.btnPopular)
+                setButtonNotClick(binding.btnUpComing)
+            }
+            else -> {
+                changeDataMovie(HotMovieType.UP_COMING)
+                setButtonClick(binding.btnUpComing)
+                setButtonNotClick(binding.btnTopRate)
+                setButtonNotClick(binding.btnPopular)
+            }
+        }
         setOnClickButton()
     }
 
@@ -97,7 +114,7 @@ class HotFragment : Fragment() {
         binding.recyclerViewHotMovie.layoutManager?.scrollToPosition(0)
         with(hotMovieViewModel) {
             addHotMovieChange(typeHotMovie)
-            fetchDataHotMovie(Constant.DEFAULT_PAGE, typeHotMovie)
+            fetchDataHotMovie(Constant.DEFAULT_PAGE, typeHotMovie.path)
         }
     }
 
@@ -117,5 +134,20 @@ class HotFragment : Fragment() {
             )
             setTextColor(ContextCompat.getColor(context, R.color.white))
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(KEY_TYPE, hotMovieViewModel.typeHotMovie.value)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.viewModel = null
+        binding.adapter = null
+    }
+
+    companion object {
+        const val KEY_TYPE = "KEY_TYPE"
     }
 }

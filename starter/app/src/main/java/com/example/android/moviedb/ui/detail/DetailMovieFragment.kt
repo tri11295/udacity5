@@ -130,4 +130,10 @@ class DetailMovieFragment : Fragment() {
             findNavController().navigateUp()
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.viewModel = null
+        binding.recommendAdapter = null
+    }
 }

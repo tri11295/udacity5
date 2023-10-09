@@ -43,4 +43,9 @@ class ActorFragment : Fragment() {
         }
         binding.appbarLayout.addOnOffsetChangedListener(listener)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.actorViewModel = null
+    }
 }
