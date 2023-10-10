@@ -1,15 +1,13 @@
 package com.example.android.moviedb.ui.hot.viewmodel
 
-import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android.moviedb.data.model.MovieResult
-import com.example.android.moviedb.data.source.local.AppDatabase
-import com.example.android.moviedb.data.source.local.MovieDao
 import com.example.android.moviedb.extensions.plusAssign
 import com.example.android.moviedb.data.source.remote.ApiRepository
 import com.example.android.moviedb.ultis.Constant
@@ -17,7 +15,16 @@ import com.example.android.moviedb.ultis.HotMovieType
 import com.example.android.moviedb.ultis.LoadMoreRecyclerViewListener
 import kotlinx.coroutines.launch
 
-class HotMovieViewModel : ViewModel(), LoadMoreRecyclerViewListener {
+class HotMovieViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(),
+    LoadMoreRecyclerViewListener {
+
+    private fun saveStateType(data: String) {
+        savedStateHandle["key_type"] = data
+    }
+
+    fun getStateType(): String? {
+        return savedStateHandle.get<String>("key_type")
+    }
 
     private val movieRepository = ApiRepository
 
@@ -74,6 +81,7 @@ class HotMovieViewModel : ViewModel(), LoadMoreRecyclerViewListener {
     }
 
     fun addHotMovieChange(typeHotMovie: HotMovieType) {
+        saveStateType(typeHotMovie.path)
         _typeHotMovie.postValue(typeHotMovie.path)
         currentPage = Constant.DEFAULT_PAGE
         _movies.value?.clear()

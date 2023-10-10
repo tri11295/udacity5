@@ -1,6 +1,7 @@
 package com.example.android.moviedb.ui.hot
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.example.android.moviedb.R
 import com.example.android.moviedb.databinding.FragmentHotBinding
@@ -31,13 +33,6 @@ class HotFragment : Fragment() {
         }
     }
     private lateinit var binding: FragmentHotBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (savedInstanceState != null) {
-            hotMovieViewModel.typeHotMovie.postValue(savedInstanceState.getString(KEY_TYPE))
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,24 +57,28 @@ class HotFragment : Fragment() {
     }
 
     private fun initView() {
-        when (hotMovieViewModel.typeHotMovie.value) {
-            HotMovieType.POPULAR.path -> {
-                changeDataMovie(HotMovieType.POPULAR)
-                setButtonClick(binding.btnPopular)
-                setButtonNotClick(binding.btnTopRate)
-                setButtonNotClick(binding.btnUpComing)
-            }
-            HotMovieType.TOP_RATED.path -> {
-                changeDataMovie(HotMovieType.TOP_RATED)
-                setButtonClick(binding.btnTopRate)
-                setButtonNotClick(binding.btnPopular)
-                setButtonNotClick(binding.btnUpComing)
-            }
-            else -> {
-                changeDataMovie(HotMovieType.UP_COMING)
-                setButtonClick(binding.btnUpComing)
-                setButtonNotClick(binding.btnTopRate)
-                setButtonNotClick(binding.btnPopular)
+        hotMovieViewModel.getStateType()?.let { type ->
+            when (type) {
+                HotMovieType.POPULAR.path -> {
+                    changeDataMovie(HotMovieType.POPULAR)
+                    setButtonClick(binding.btnPopular)
+                    setButtonNotClick(binding.btnTopRate)
+                    setButtonNotClick(binding.btnUpComing)
+                }
+
+                HotMovieType.TOP_RATED.path -> {
+                    changeDataMovie(HotMovieType.TOP_RATED)
+                    setButtonClick(binding.btnTopRate)
+                    setButtonNotClick(binding.btnPopular)
+                    setButtonNotClick(binding.btnUpComing)
+                }
+
+                else -> {
+                    changeDataMovie(HotMovieType.UP_COMING)
+                    setButtonClick(binding.btnUpComing)
+                    setButtonNotClick(binding.btnTopRate)
+                    setButtonNotClick(binding.btnPopular)
+                }
             }
         }
         setOnClickButton()
@@ -134,20 +133,5 @@ class HotFragment : Fragment() {
             )
             setTextColor(ContextCompat.getColor(context, R.color.white))
         }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(KEY_TYPE, hotMovieViewModel.typeHotMovie.value)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        binding.viewModel = null
-        binding.adapter = null
-    }
-
-    companion object {
-        const val KEY_TYPE = "KEY_TYPE"
     }
 }

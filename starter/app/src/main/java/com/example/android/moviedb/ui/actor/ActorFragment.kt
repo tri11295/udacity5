@@ -1,6 +1,8 @@
 package com.example.android.moviedb.ui.actor
 
+import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,15 +39,19 @@ class ActorFragment : Fragment() {
         binding.imageBack.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        actorDetailViewModel.getProgress()?.let {
+            binding.motionLayout.progress = it
+            if (it > 0f) {
+                binding.appbarLayout.setExpanded(false)
+            }
+        }
+
         val listener = AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
             val seekPosition = -verticalOffset / binding.appbarLayout.totalScrollRange.toFloat()
             binding.motionLayout.progress = seekPosition
+            actorDetailViewModel.saveProgress(seekPosition)
         }
         binding.appbarLayout.addOnOffsetChangedListener(listener)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        binding.actorViewModel = null
     }
 }

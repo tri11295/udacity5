@@ -1,13 +1,22 @@
 package com.example.android.moviedb.ui.actor
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android.moviedb.data.model.ActorDetail
 import com.example.android.moviedb.data.source.remote.ApiRepository
 import kotlinx.coroutines.launch
 
-class ActorDetailViewModel() : ViewModel() {
+class ActorDetailViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
+
+    fun saveProgress(progress: Float) {
+        savedStateHandle["key_progress"] = progress
+    }
+
+    fun getProgress(): Float? {
+        return savedStateHandle.get<Float>("key_progress")
+    }
 
     private var apiRepository = ApiRepository
 
