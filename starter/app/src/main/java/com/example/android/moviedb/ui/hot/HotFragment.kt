@@ -58,23 +58,21 @@ class HotFragment : Fragment() {
 
     private fun initView() {
         hotMovieViewModel.getStateType()?.let { type ->
+            hotMovieViewModel.typeHotMovie.value = type
             when (type) {
                 HotMovieType.POPULAR.path -> {
-                    changeDataMovie(HotMovieType.POPULAR)
                     setButtonClick(binding.btnPopular)
                     setButtonNotClick(binding.btnTopRate)
                     setButtonNotClick(binding.btnUpComing)
                 }
 
                 HotMovieType.TOP_RATED.path -> {
-                    changeDataMovie(HotMovieType.TOP_RATED)
                     setButtonClick(binding.btnTopRate)
                     setButtonNotClick(binding.btnPopular)
                     setButtonNotClick(binding.btnUpComing)
                 }
 
                 else -> {
-                    changeDataMovie(HotMovieType.UP_COMING)
                     setButtonClick(binding.btnUpComing)
                     setButtonNotClick(binding.btnTopRate)
                     setButtonNotClick(binding.btnPopular)

@@ -43,7 +43,8 @@ class HotMovieViewModel(private val savedStateHandle: SavedStateHandle) : ViewMo
         get() = _movies
 
     init {
-        fetchDataHotMovie(Constant.DEFAULT_PAGE, typeHotMovie.value.orEmpty())
+        val type = getStateType() ?: HotMovieType.POPULAR.path
+        fetchDataHotMovie(typeHotMovie = type)
     }
 
     override fun onLoadData() {
